@@ -3,6 +3,9 @@ import './Botonera.css';
 
 import navReducer from '../../redux/reducers/navReducer';
 import {nav_click} from '../../redux/actions/navActions';
+
+import { Link } from 'react-router-dom';
+
 import { connect } from 'react-redux';
 
 
@@ -24,9 +27,9 @@ const Botonera = ({title, nav_click}) => {
             </h1>
         </div>
         <ul>
-            <li onClick={() =>buttonClick('Home')}>Home</li>
-            <li onClick={() =>buttonClick('List')}>List</li>
-            <li onClick={() =>buttonClick('New')}>New</li>
+            <li onClick={() =>buttonClick('Home')}><Link to='home'>Home</Link></li>
+            <li onClick={() =>buttonClick('List')}><Link to='list'>List</Link></li>
+            <li onClick={() =>buttonClick('New')}><Link to='form'>New</Link></li>
         </ul>
       </header>
     </div>

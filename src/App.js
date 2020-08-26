@@ -9,11 +9,11 @@ import List from './component/list/List';
 function App() {
   return (
     <div className="App">
-      <Botonera/>
       <Router>
+        <Botonera/>
           <Route path='/home' component={Home} />
           <Route path='/list' component={List} />
-          <Route path='/new' component={Form} />
+          <Route path='/form' component={Form} />
       </Router>
     </div>
   );

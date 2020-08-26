@@ -7,7 +7,7 @@ const Form = ({}) => {
 
   return (
     <div className="Form">
-      
+      <h1>New</h1>
     </div>
   );
 }

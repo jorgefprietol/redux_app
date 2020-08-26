@@ -3,7 +3,24 @@ import './List.css';
 
 import { connect } from 'react-redux';
 
+import axios from 'axios';
+import { useEffect } from 'react';
+
 const List = ({}) => {
+
+  useEffect(() => {
+    axios
+        .get(
+          'http://dev.contanimacion.com/api_tablon/api/mensajes'
+        )
+        .then(({data}) => {
+          console.log('llega: ', data);
+        })
+        .catch((error) => {
+          console.log('error proyecto: ', error);
+        })
+
+  }, [])
 
   return (
     <div className="List">

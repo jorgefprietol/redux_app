@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import axios from 'axios';
 import { useEffect } from 'react';
+import Item from '../item/Item';
 
 const List = ({}) => {
 
@@ -25,6 +26,13 @@ const List = ({}) => {
   return (
     <div className="List">
       <h1>List</h1>
+      {
+        list && list.length ?
+          list.map((item, index) => {
+            return <Item data = {item} key= {index}/>
+          })
+          : ''
+      }
     </div>
   );
 }

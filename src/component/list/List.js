@@ -6,8 +6,10 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { useEffect } from 'react';
 import Item from '../item/Item';
+import {store_all} from '../../redux/actions/apiActions';
+import apiState from '../../redux/reducers/apiReducer';
 
-const List = ({}) => {
+const List = ({list, store_all}) => {
 
   useEffect(() => {
     axios
@@ -16,6 +18,9 @@ const List = ({}) => {
         )
         .then(({data}) => {
           console.log('llega: ', data);
+          store_all({
+            list: data,
+          })
         })
         .catch((error) => {
           console.log('error proyecto: ', error);
@@ -40,11 +45,11 @@ const List = ({}) => {
 const mapStateToProps = (state) => {
   console.log('Estado Recibido', state);
   return {
-    
+    list: state.apiState.list,
   }
 }
 
 export default connect(
   mapStateToProps,
-  { }
+  { store_all }
 )(List);

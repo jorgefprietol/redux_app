@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Botonera.css';
 
 import navReducer from '../../redux/reducers/navReducer';
@@ -20,6 +20,26 @@ const Botonera = ({title, nav_click, match: {params}}) => {
       title: title,
     });
   }
+
+  useEffect(() => {
+    let title = '';
+    switch (params.section) {
+      case 'home': 
+        title = 'Home';
+        break;
+      case 'list': 
+        title = 'List';
+        break;
+      case 'form': 
+        title = 'New';
+        break;
+      default:
+        title = '';
+    }
+    nav_click({
+      title: title,
+    });
+  }, [])
 
   const renderSection = () => {
     switch (params.section) {

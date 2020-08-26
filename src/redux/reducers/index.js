@@ -1,4 +1,4 @@
 import {combineReducers} from 'redux';
-import navReducer from './navReducer';
+import navState from './navReducer';
 
-export default combineReducers({navReducer})
+export default combineReducers({navState})

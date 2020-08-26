@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 
 
-const Botonera = (title, nav_click) => {
+const Botonera = ({title, nav_click}) => {
 
   const buttonClick = (title) => {
     nav_click({
@@ -34,6 +34,7 @@ const Botonera = (title, nav_click) => {
 }
 
 const mapStateToProps = (state) => {
+  console.log('Estado Recibido', state);
   return {
     title: state.navState.title,
   }

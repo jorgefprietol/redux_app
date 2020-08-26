@@ -2,12 +2,12 @@ import React from 'react';
 import './Botonera.css';
 
 import navReducer from '../../redux/reducers/navReducer';
-import nav_click from '../../redux/actions/navActions';
+import {nav_click} from '../../redux/actions/navActions';
 import { connect } from 'react-redux';
 
 
 
-const Botonera = () => {
+const Botonera = (title, nav_click) => {
 
   const buttonClick = (title) => {
     nav_click({
@@ -20,7 +20,7 @@ const Botonera = () => {
       <header className="App-header">
         <div>
             <h1>
-                Titulo
+                {title}
             </h1>
         </div>
         <ul>

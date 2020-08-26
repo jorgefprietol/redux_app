@@ -7,15 +7,34 @@ import {nav_click} from '../../redux/actions/navActions';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
+import Home from '../home/Home';
+import Form from '../form/Form';
+import List from '../list/List';
 
 
 
-const Botonera = ({title, nav_click}) => {
+const Botonera = ({title, nav_click, match: {params}}) => {
 
   const buttonClick = (title) => {
     nav_click({
       title: title,
     });
+  }
+
+  const renderSection = () => {
+    switch (params.section) {
+      case 'home': 
+        return <Home/>;
+        break;
+      case 'list': 
+        return <List/>;
+        break;
+      case 'form': 
+        return <Form/>;
+        break;
+      default:
+        return;
+    }
   }
 
   return (
@@ -26,20 +45,22 @@ const Botonera = ({title, nav_click}) => {
                 {title}
             </h1>
         </div>
-        <ul>
-            <li onClick={() =>buttonClick('Home')}><Link to='home'>Home</Link></li>
-            <li onClick={() =>buttonClick('List')}><Link to='list'>List</Link></li>
-            <li onClick={() =>buttonClick('New')}><Link to='form'>New</Link></li>
-        </ul>
+        <Link to='home' onClick={() =>buttonClick('Home')}>Home</Link>
+        <Link to='list' onClick={() =>buttonClick('List')}>List</Link>
+        <Link to='form' onClick={() =>buttonClick('New')}>New</Link>
       </header>
+
+      { renderSection()}
+
     </div>
   );
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   console.log('Estado Recibido', state);
   return {
     title: state.navState.title,
+    section: ownProps.section,
   }
 }
 

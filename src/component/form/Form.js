@@ -7,15 +7,25 @@ import {reduxForm, Field} from 'redux-form';
 
 const validate = values => {
   const errors = {};
+  if(!values.asunto){
+    errors.asunto = 'Required';
+  } else if(values.asunto.length < 6){
+    errors.asunto = 'Minimun be 2 characters or more';
+  }
+  if(!values.mensaje){
+    errors.mensaje = 'Required';
+  } else if(values.mensaje.length < 6){
+    errors.mensaje = 'Minimun be 2 characters or more';
+  }
   return errors;
 }
 
-const renderField = ({label,input, type}) => (
+const renderField = ({label,input, type, meta: {touched, error, warning}}) => (
   <div>
     <label className='control-label'>{label}</label>
     <div>
       <input {...input} type={type} className='form-control' placeholder={label} />
-
+      {touched && ((error && <span className='text-danger'>{error}</span>) || (warning && <span className='text-warning'>{warning}</span>))}
     </div>
   </div>
 )

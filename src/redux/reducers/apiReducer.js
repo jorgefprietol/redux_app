@@ -3,6 +3,7 @@ import { register } from '../../serviceWorker';
 
 const initialState = {
     list: [],
+    loading: false,
 }
 
 const apiState = (state = initialState, action) => {
@@ -11,6 +12,7 @@ const apiState = (state = initialState, action) => {
             return {
                 ...state,
                 list: action.payload.list,
+                loading: action.payload.loading,
             }
         }
         default: return state;

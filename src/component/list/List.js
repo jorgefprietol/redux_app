@@ -9,9 +9,13 @@ import Item from '../item/Item';
 import {store_all} from '../../redux/actions/apiActions';
 import apiState from '../../redux/reducers/apiReducer';
 
-const List = ({list, store_all}) => {
+const List = ({list, loading, store_all}) => {
 
   useEffect(() => {
+    store_all({
+      list: [],
+      loading: true,
+    });
     axios
         .get(
           'http://dev.contanimacion.com/api_tablon/api/mensajes'
@@ -20,7 +24,8 @@ const List = ({list, store_all}) => {
           console.log('llega: ', data);
           store_all({
             list: data,
-          })
+            loading: false,
+          });
         })
         .catch((error) => {
           console.log('error proyecto: ', error);
@@ -31,6 +36,7 @@ const List = ({list, store_all}) => {
   return (
     <div className="List">
       <h1>List</h1>
+      { loading ? 'Cargando Datos...' : '' }
       {
         list && list.length ?
           list.map((item, index) => {
@@ -46,6 +52,7 @@ const mapStateToProps = (state) => {
   console.log('Estado Recibido', state);
   return {
     list: state.apiState.list,
+    loading: state.apiState.loading
   }
 }
 

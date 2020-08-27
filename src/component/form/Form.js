@@ -3,7 +3,7 @@ import './Form.css';
 
 import { connect } from 'react-redux';
 
-import {reduxForm} from 'redux-Form';
+import {reduxForm} from 'redux-form';
 
 const validate = values => {
   const errors = {};

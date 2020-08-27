@@ -9,7 +9,7 @@ import Item from '../item/Item';
 import {store_all, fetchData} from '../../redux/actions/apiActions';
 import apiState from '../../redux/reducers/apiReducer';
 
-const List = ({list, loading, store_all, fetchData}) => {
+const List = ({list, loading, error, store_all, fetchData}) => {
 
   useEffect(() => {
     fetchData();
@@ -19,6 +19,7 @@ const List = ({list, loading, store_all, fetchData}) => {
     <div className="List">
       <h1>List</h1>
       { loading ? 'Cargando Datos...' : '' }
+      { error ? 'Recibido error' + error : '' }
       {
         list && list.length ?
           list.map((item, index) => {
@@ -31,10 +32,11 @@ const List = ({list, loading, store_all, fetchData}) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log('Estado Recibido', state);
+  console.log('Estado Recibido', state.apiState);
   return {
     list: state.apiState.list,
-    loading: state.apiState.loading
+    loading: state.apiState.loading,
+    error: state.apiState.error,
   }
 }
 

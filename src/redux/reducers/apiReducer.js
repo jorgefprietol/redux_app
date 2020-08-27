@@ -4,6 +4,7 @@ import { register } from '../../serviceWorker';
 const initialState = {
     list: [],
     loading: false,
+    error: '',
 }
 
 const apiState = (state = initialState, action) => {
@@ -12,6 +13,26 @@ const apiState = (state = initialState, action) => {
             return {
                 ...state,
                 list: action.payload.list,
+                loading: action.payload.loading,
+            }
+        }
+        case types.SENDING_REQUEST: {
+            return {
+                ...state,
+                loading: action.payload.loading,
+            }
+        }
+        case types.REQUEST_DATA: {
+            return {
+                ...state,
+                list: action.payload.list,
+                loading: action.payload.loading,
+            }
+        }
+        case types.REQUEST_ERROR: {
+            return {
+                ...state,
+                error: action.payload.error,
                 loading: action.payload.loading,
             }
         }

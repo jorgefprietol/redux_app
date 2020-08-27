@@ -16,10 +16,10 @@ export const sending_request = () => ({
     }
 })
 
-export const request_data = data => ({
+export const request_data = (data) => ({
     type: types.REQUEST_DATA,
     payload: {
-        list: data.list,
+        list: data.data,
         loading: false,
     }
 })

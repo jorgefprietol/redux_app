@@ -1,4 +1,5 @@
 import * as types from './actionTypes';
+import axios from 'axios';
 
 export const store_all = data => ({
     type: types.STORE_ALL,
@@ -30,3 +31,23 @@ export const request_error = error => ({
         loading: false,
     }
 })
+
+const getData = () => {
+    return axios
+    .get(
+      'http://dev.contanimacion.com/api_tablon/api/mensajes'
+    )
+    .then( res => res)
+    .catch(error => error)
+}
+
+export const fetchData = () => dispatch => {
+    dispatch(sending_request());
+    return getData()
+            .then(data => {
+                dispatch(request_data(data));
+            })
+            .catch(error => {
+                dispatch(request_error(error));
+            })
+}

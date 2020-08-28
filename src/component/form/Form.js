@@ -3,7 +3,8 @@ import './Form.css';
 
 import { connect } from 'react-redux';
 
-import {reduxForm, Field} from 'redux-form';
+import {reduxForm, Field, handleSubmit} from 'redux-form';
+import {sendNew} from '../../redux/actions/apiActions';
 
 const validate = values => {
   const errors = {};
@@ -17,6 +18,7 @@ const validate = values => {
   } else if(values.mensaje.length < 6){
     errors.mensaje = 'Minimun be 2 characters or more';
   }
+  console.log('validado el formulario', errors);
   return errors;
 }
 
@@ -30,12 +32,18 @@ const renderField = ({label,input, type, meta: {touched, error, warning}}) => (
   </div>
 )
 
-let Form = ({}) => {
-
+let Form = ({responseOk, loading, sendNew, handleSubmit}) => {
+  const beforeSubmit = (values) => {
+    values.name = 'JFPL';
+    values.user_id = 13;
+    console.log('//////////////////////--------*******valores del form para enviar al post----->>>',values);
+    sendNew(values);
+    console.log('validado el resultado del sendNew');
+  }
   return (
     <div className="Form">
       <h3>Añadir nuevo mensaje</h3>
-      <form>
+      <form onSubmit={handleSubmit(beforeSubmit)}>
         <div>
           <Field name='asunto' label='asunto' component={renderField} />
         </div>
@@ -46,6 +54,8 @@ let Form = ({}) => {
           <input type='submit' value='Enviar' className='enviar' />
         </div>
       </form>
+      { loading ? 'Enviando Datos...' : '' }
+      { responseOk ? 'Datos enviados correctamente...' : '' }
     </div>
   );
 }
@@ -60,11 +70,12 @@ Form = reduxForm(
 const mapStateToProps = (state) => {
   console.log('Estado Recibido', state);
   return {
-    
+    responseOk: state.apiState.ok,
+    loading: state.apiState.loading,
   }
 }
 
 export default connect(
   mapStateToProps,
-  { }
+  { sendNew }
 )(Form);

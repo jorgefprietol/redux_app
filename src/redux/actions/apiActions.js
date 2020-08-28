@@ -65,6 +65,7 @@ export const request_post_data = (data) => ({
 })
 
 const postData = (data) => {
+    console.log('validado el postdata', data);
     return axios
     .post(
       'http://dev.contanimacion.com/api_tablon/api/mensajes/add',
@@ -75,10 +76,13 @@ const postData = (data) => {
 }
 
 export const sendNew = (data) => dispatch => {
+    console.log('validado el sendNew', data);
     dispatch(sending_request());
-    return postData()
+    return postData(data)
             .then(data => {
+                console.log('validado el resultado del postdata', data);
                 dispatch(request_post_data(data));
+                console.log('validado el request_post_data', data);
             })
             .catch(error => {
                 dispatch(request_error(error));
